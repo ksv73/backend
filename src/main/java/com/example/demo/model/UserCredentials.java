@@ -16,6 +16,9 @@ public class UserCredentials {
     @Column(name = "user_password")
     private String userPassword;
     
+
+
+
     private String Token;
 
 	public String getToken() {

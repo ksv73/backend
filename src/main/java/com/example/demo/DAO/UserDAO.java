@@ -15,6 +15,7 @@ public interface UserDAO extends CrudRepository<UserCredentials, String> {
 
 	   @Query("SELECT u FROM UserCredentials u WHERE u.userName=:userName AND u.userPassword=:userPassword")
 	   UserCredentials findByUserIdAndUserPassword(@Param("userName") String userName, @Param("userPassword") String userPassword);
-	
+	   
+	 
 
 }

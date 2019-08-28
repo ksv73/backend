@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.DAO.RecommendDAO;
 import com.example.demo.DAO.UserDAO;
+import com.example.demo.Exception.UserNotFoundException;
 import com.example.demo.model.Recommend;
 import com.example.demo.model.UserCredentials;
 
@@ -34,6 +35,26 @@ public class RecommendServiceImpl implements RecommendService {
 		
 	}
 
+	@Override
+	public List<Recommend> findByUserName(String username) throws UserNotFoundException{
+		List<Recommend> userRecommend = null;
+	try {
+		
+			 userRecommend=(List<Recommend>) dao.findByUserName(username);
+			 for(Recommend r:userRecommend) {
+				
+			 }
+			if (userRecommend == null) {
+		         throw new UserNotFoundException("User Not Found");
+			} }catch (Exception e) { System.out.println(e);
+		
+	
+	}
+
+	return userRecommend;
+
+
+	}
 	
 
 

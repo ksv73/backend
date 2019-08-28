@@ -21,8 +21,19 @@ public class Recommend {
 	    
 	    @Column(name = "url")
 	    private String url;
+	   
+	    @Column(name = "username")
+	    private String username;
 	 
-	    public Recommend(int id) {
+	    public String getUsername() {
+			return username;
+		}
+
+		public void setUsername(String username) {
+			this.username = username;
+		}
+
+		public Recommend(int id) {
 		super();
 		this.id = id;
 	}

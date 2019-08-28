@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.example.demo.Exception.UserNotFoundException;
 import com.example.demo.model.Recommend;
 import com.example.demo.model.UserCredentials;
 import com.example.demo.service.RecommendService;
@@ -30,6 +31,7 @@ public class RecommendController {
 
 	@Autowired
 	   private RecommendService service;
+	
 	@RequestMapping(value= "/apiRecommend/**", method=RequestMethod.OPTIONS)
     public void corsHeaders(HttpServletResponse response) {
         response.addHeader("Access-Control-Allow-Origin", "*");
@@ -46,12 +48,14 @@ public class RecommendController {
 	       return new ResponseEntity<Recommend>(recommend,HttpStatus.OK);
 	       }
 	
-	@GetMapping("/displayRecommend")
-	public ResponseEntity<List<Recommend>>  displayAllRecommends()
+	@GetMapping("/displayRecommend/{username}")
+	public ResponseEntity<List<Recommend>>  displayAllRecommends(@PathVariable String username) throws UserNotFoundException
 	{
-		List<Recommend> recommendList=service.displayAllRecommends();
 		
-	return new ResponseEntity<List<Recommend>>(recommendList,HttpStatus.OK);
+		List<Recommend> userRecommend=service.findByUserName(username);
+		//List<Recommend> recommendList=service.displayAllRecommends();
+		
+	return new ResponseEntity<List<Recommend>>(userRecommend,HttpStatus.OK);
 		
 	}
 	
